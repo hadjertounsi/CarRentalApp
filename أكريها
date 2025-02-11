@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Car Rental Platform</h1>
+        
+        <!-- Login Section -->
+        <div id="login-section">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+        </div>
+
+        <!-- Register Section -->
+        <div id="register-section" style="display: none;">
+            <h2>Register</h2>
+            <input type="text" id="new-username" placeholder="Username">
+            <input type="password" id="new-password" placeholder="Password">
+            <button onclick="register()">Register</button>
+            <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
+
+        <!-- Car Listing -->
+        <div id="car-listing" style="display: none;">
+            <h2>Available Cars</h2>
+            <div class="car">
+                <h3>Toyota Corolla</h3>
+                <p>Price: $50 per hour</p>
+                <input type="number" id="rental-hours" placeholder="Hours">
+                <button onclick="rentCar('Toyota Corolla', 50)">Rent</button>
+                <button onclick="negotiatePrice('Toyota Corolla')">Negotiate</button>
+            </div>
+            
+            <div class="car">
+                <h3>Honda Civic</h3>
+                <p>Price: $45 per hour</p>
+                <input type="number" id="rental-hours-2" placeholder="Hours">
+                <button onclick="rentCar('Honda Civic', 45)">Rent</button>
+                <button onclick="negotiatePrice('Honda Civic')">Negotiate</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #007bff;
+}
+
+input {
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 95%;
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.car {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+function showRegister() {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("register-section").style.display = "block";
+}
+
+function showLogin() {
+    document.getElementById("register-section").style.display = "none";
+    document.getElementById("login-section").style.display = "block";
+}
+
+function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if (username === "admin" && password === "1234") {
+        alert("Login successful!");
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("car-listing").style.display = "block";
+    } else {
+        alert("Invalid credentials. Try again.");
+    }
+}
+
+function register() {
+    let newUsername = document.getElementById("new-username").value;
+    let newPassword = document.getElementById("new-password").value;
+
+    if (newUsername && newPassword) {
+        alert("Registration successful! Now log in.");
+        showLogin();
+    } else {
+        alert("Please fill all fields.");
+    }
+}
+
+function rentCar(carName, price) {
+    let hours = document.getElementById("rental-hours").value;
+    if (hours > 0) {
+        let totalPrice = hours * price;
+        alert(`You rented ${carName} for ${hours} hours. Total cost: $${totalPrice}`);
+    } else {
+        alert("Please enter valid hours.");
+    }
+}
+
+function negotiatePrice(carName) {
+    let userOffer = prompt(`Enter your offer for ${carName}:`);
+    if (userOffer) {
+        alert(`Your offer of $${userOffer} for ${carName} has been sent to the owner.`);
+    }
+}
